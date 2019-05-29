@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 {% block contents %}
 <body>
-    <div  style="margin: 3% 10%">
-        <h1>자세한 내용을 알려주는 페이지입니다</h1>
+    <div style="margin: 3% 10%">
         <br><br>
-        <h1 class="card-title">{{blog.title}}</h1>
-        <h4 class="card-subtitle mb-2 text-muted">{{blog.pub_date}}</h4>
-        <p class="card-text">{{blog.body}}</p>
+        <div class="card-body">
+            <h1 class="card-title">{{blog.title}}</h1>
+            <h4 class="card-subtitle mb-2 text-muted">{{blog.pub_date}}</h4>
+            <p class="card-text">{{blog.body}}</p>
+        </div>
+        <br>
+        <a href="{%url 'home'%}" style="display:block; text-align:right">
+         <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="홈으로 돌아감니당">
+           돌아가기
+         </button></a> 
     </div>
-    
 </body>
 {%endblock%}

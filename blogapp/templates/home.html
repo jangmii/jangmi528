@@ -7,23 +7,76 @@
             <h5 class="card-title">{{num.title}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{num.pub_date}}</h6>
             <p class="card-text">{{num.summary}}</p>
-            <a href="{%url 'detail' num.id%}" class="card-link">...more</a>
-            <div style="text-align:right"> 
-            <button type="button" class="btn btn-outline-danger" >
-              <a href="#">Delete</a>
-            </button>
+            <a href="{%url 'detail' num.id%}">
+            <button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="{{num.body}}">
+              더보기
+            </button></a> 
+            <div class="text-right">
+              <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#update">수정하기</button>&nbsp;
+                <!-- Modal -->
+            <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">수정할 내용을 입력하세용</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body" style="text-align:left">
+                      <br> 
+                      <form action="{%url 'update' num.id%}">
+                          <h4>제목: </h4>
+                          <input type="text" name="title" >
+                          <br><br>
+                          <h4>본문: </h4>
+                          <textarea cols=40 rows=10 name="body"></textarea>
+                          <br><br>
+                          <!-- <input class="btn btn-dark" type="submit" value="제출하기"> -->
+                        <br>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                      <input class="btn btn-success" type="submit" value="저장하기!">
+                    </div>
+                  </form>
+                  </div>
+                 </div>
+              </div>
+                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal" >삭제하기</button>&nbsp; &nbsp;
+<!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">진짜?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" style="text-align:left">
+                    <br>삭제할꺼야? <br><br>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">아니..</button>
+                    <a href="{%url 'delete' num.id%}">
+                    <button type="button" class="btn btn-danger">할거야!</button></a>
+                  </div>
+                </div>
+               </div>
             </div>
+  
+              </div>
         </div>
     </div>
   {%endfor%}
-  <div class="container" style="text-align : center">
   {#First Previous 3 of 4 Next Last#}
           {%comment%}
           {%if posts.has_previous%}
           <a href="?page=1">First</a>
           <a href="?page={{posts.previous_page_number}}">Previous</a>
           {%endif%} 
-          <span>{{posts.number}} / {{posts.paginator.num_pages}}</span>
+          <div>{{posts.number}} / {{posts.paginator.num_pages}}</div>
           
             {%if posts.has_next%}
             <a href="?page={{posts.next_page_number}}">Next</a>
@@ -31,7 +84,7 @@
           {%endif%}  
           {%endcomment%}
   <br>
-
+  <div class="container" style="text-align : center">
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         {%if posts.has_previous%}
@@ -53,7 +106,7 @@
         {%for i in posts.paginator.page_range %}
           {%if i == posts.number %} 
             <li class="page-item active"aria-current="page">
-              <a class="page-link" href="?page={{i}}">{{i}}<span class="sr-only">(current)</span></a>
+              <a class="page-link" href="?page={{i}}">{{i}}<div class="sr-only">(current)</div></a>
             </li>
           {%else%}
           <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>        
